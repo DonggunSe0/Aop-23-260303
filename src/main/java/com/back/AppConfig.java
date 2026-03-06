@@ -1,5 +1,7 @@
 package com.back;
 
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,8 +27,33 @@ public class AppConfig {
 //        return new PersonService();
 //    }
 
+    //ApplicationRunner 바로 만들기
+    @Bean
+    public ApplicationRunner myApplicationRunner3() {
+        return (ApplicationArguments args) -> {
+            work1();
+            work2();
+        }; //new ApplicationRunner() 생략가능
+    }
+
+    public void work1() {
+        System.out.println("work1");
+    }
+
+    public void work2() {
+        System.out.println("work2");
+
+    }
+}
+//익명 객체인데 메서드가 하나인 인터페이스라서 람다식으로 표현할 수 있어. 그래서 new ApplicationRunner() 생략 가능해.
+
+// ApplicationRunner 인터페이스를 구현한 익명 클래스를 Bean으로 등록하는 방법이야.
+// 이렇게 하면 myApplicationRunner3라는 Bean이 생성되고,
+// 스프링이 애플리케이션이 시작될 때 run() 메서드를 자동으로 실행하게 돼.
+
+
 //    public ApplicationRunner myApplicationRunner() {
 ////        return new ApplicationRunner(); //new가 안되는 이유 ->
 //        // ApplicationRunner는 스프링에서 제공하는 인터페이스이기 때문에 직접 인스턴스를 생성할 수 없어.
 //    }
-}
+
