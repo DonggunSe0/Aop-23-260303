@@ -1,16 +1,16 @@
 package com.back;
 
-import org.springframework.stereotype.Component;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
+@RequiredArgsConstructor
 public class PersonService {
 
     private final PersonRepository personRepository;
 
-    public PersonService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
-    }
-
+    @Transactional
     public int count() {
         return personRepository.count();
     }

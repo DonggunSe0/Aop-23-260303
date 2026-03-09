@@ -12,11 +12,18 @@ public class AppConfig {
 
     @Autowired
     @Lazy //지연로딩, 순환참조 방지
-    private AppConfig self;
+    private AppConfig self; //가짜 중국집 @lazy가 없으면 진짜 중국집이 된다. @lazy가 없으면 진짜 중국집이 된다.
+
 
     @Bean
     public ApplicationRunner myApplicationRunner3() {
         return args -> {
+
+            //리얼 객체의 메서드 호출
+            this.work1();
+            this.work2();
+
+            //프록시 객체의 메서드 호출
             self.work1();
             self.work2();
         };
