@@ -14,6 +14,7 @@ public class WiseSayingService {
 
     private final WiseSayingRepository wiseSayingRepository;
 
+
     public WiseSaying write(String content, String author) {
         WiseSaying wiseSaying = new WiseSaying(content, author);
         wiseSayingRepository.save(wiseSaying);
@@ -45,4 +46,8 @@ public class WiseSayingService {
     }
 
 
+    // 명언의 총 개수를 반환하는 메서드
+    public long count() {
+        return wiseSayingRepository.count();
+    }
 }
