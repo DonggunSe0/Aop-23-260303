@@ -2,6 +2,7 @@ package com.back.domain.wiseSaying.controller;
 
 import com.back.domain.wiseSaying.entity.WiseSaying;
 import com.back.domain.wiseSaying.service.WiseSayingService;
+import com.back.standard.MarkdownService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor // final이 붙은 필드의 생성자를 만들어주는 어노테이션, 생성자 주입 방식으로 의존성 주입을 할 때 사용
 public class WiseSayingController {
     private final WiseSayingService wiseSayingService;
+    private final MarkdownService markdownService;
 
     //queryString 방식으로 명언 등록
     @GetMapping("/wiseSayings/write")
@@ -58,13 +60,15 @@ public class WiseSayingController {
             @PathVariable int id
 
     ) {
-
         WiseSaying wiseSaying = wiseSayingService.findById(id);
+        String html = markdownService.toHtml(wiseSaying.getContent());
+
+
         return """
                 <h1>번호 : %s</h1>
                 <div>명언 : %s</div>
                 <div>작가 : %s</div>
-                """.formatted(wiseSaying.getId(), wiseSaying.getContent(), wiseSaying.getAuthor());
+                """.formatted(wiseSaying.getId(), html, wiseSaying.getAuthor());
     }
 
     @GetMapping("/wiseSayings/delete/{id}") //변수화

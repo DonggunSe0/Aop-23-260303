@@ -25,7 +25,7 @@ public class BaseInitData {
     ApplicationRunner initDataRunner() {
         return args -> {
             self.work1();
-            this.work2();
+            self.work2();
             work3();
             //transactional이 반영이 되려면 프록시 객체를 통해서 메서드를 호출해야 해. 그래서 self.work1()이야. this.work1()은 프록시 객체가 아니라, 진짜 객체의 메서드를 호출하는 거야.
             // 그래서 transactional이 반영이 안돼. self.work1()은 프록시 객체의 메서드를 호출하는 거야. 그래서 transactional이 반영돼.
@@ -71,7 +71,10 @@ public class BaseInitData {
             wiseSayingService.write("명언2", "작가2");
             wiseSayingService.write("명언3", "작가3");
             wiseSayingService.write( "명언4", "작가4");
-            wiseSayingService.write( "명언5", "작가5");
+            wiseSayingService.write("""
+                        -너 자신을 알라
+                        -나의 죽음을 적에게 알리지 말라
+                    """, "작가5");
         }; // array list에 초기값 넣는 방법, 초기값이 5개 들어가 있음
     }
 
